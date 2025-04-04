@@ -179,7 +179,8 @@ class JoinedClassesView(generics.ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        print(f"Authenticated user ID: {user.id}")
+        if not user.is_authenticated:
+            raise Exception("User is not authenticated")
 
         queryset = ClassStudent.objects.filter(student=user)
         print(f"Queryset: {queryset}")
